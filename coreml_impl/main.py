@@ -1,5 +1,3 @@
-#!python3
-
 import coremltools as ct
 from coremltools.converters.mil import Builder as mb
 import numpy as np
