@@ -1,2 +1,4 @@
 coreml_impl/coremltools-venv*
 base_impl/main
+coreml_objc_impl/*.o
+coreml_objc_impl/main

@@ -22,6 +22,8 @@ def prog(A, B):
 
 model = ct.convert(prog)
 
+print(type(model))
+
 times = []
 
 for _ in range(num_tests):
