@@ -1,0 +1,347 @@
+specificationVersion: 6
+description {
+  input {
+    name: "A"
+    type {
+      multiArrayType {
+        shape: 3000
+        shape: 3000
+        dataType: FLOAT32
+      }
+    }
+  }
+  input {
+    name: "B"
+    type {
+      multiArrayType {
+        shape: 3000
+        shape: 3000
+        dataType: FLOAT32
+      }
+    }
+  }
+  output {
+    name: "softmax"
+    type {
+      multiArrayType {
+        shape: 3000
+        shape: 3000
+        dataType: FLOAT32
+      }
+    }
+  }
+}
+mlProgram {
+  version: 1
+  functions {
+    key: "main"
+    value {
+      inputs {
+        name: "A"
+        type {
+          tensorType {
+            dataType: FLOAT32
+            rank: 2
+            dimensions {
+              constant {
+                size: 3000
+              }
+            }
+            dimensions {
+              constant {
+                size: 3000
+              }
+            }
+          }
+        }
+      }
+      inputs {
+        name: "B"
+        type {
+          tensorType {
+            dataType: FLOAT32
+            rank: 2
+            dimensions {
+              constant {
+                size: 3000
+              }
+            }
+            dimensions {
+              constant {
+                size: 3000
+              }
+            }
+          }
+        }
+      }
+      opset: "CoreML5"
+      block_specializations {
+        key: "CoreML5"
+        value {
+          outputs: "softmax"
+          operations {
+            type: "const"
+            outputs {
+              name: "matmul_transpose_x_0"
+              type {
+                tensorType {
+                  dataType: BOOL
+                }
+              }
+            }
+            attributes {
+              key: "name"
+              value {
+                type {
+                  tensorType {
+                    dataType: STRING
+                  }
+                }
+                immediateValue {
+                  tensor {
+                    strings {
+                      values: "matmul_transpose_x_0"
+                    }
+                  }
+                }
+              }
+            }
+            attributes {
+              key: "val"
+              value {
+                type {
+                  tensorType {
+                    dataType: BOOL
+                  }
+                }
+                immediateValue {
+                  tensor {
+                    bools {
+                      values: false
+                    }
+                  }
+                }
+              }
+            }
+          }
+          operations {
+            type: "const"
+            outputs {
+              name: "matmul_transpose_y_0"
+              type {
+                tensorType {
+                  dataType: BOOL
+                }
+              }
+            }
+            attributes {
+              key: "name"
+              value {
+                type {
+                  tensorType {
+                    dataType: STRING
+                  }
+                }
+                immediateValue {
+                  tensor {
+                    strings {
+                      values: "matmul_transpose_y_0"
+                    }
+                  }
+                }
+              }
+            }
+            attributes {
+              key: "val"
+              value {
+                type {
+                  tensorType {
+                    dataType: BOOL
+                  }
+                }
+                immediateValue {
+                  tensor {
+                    bools {
+                      values: false
+                    }
+                  }
+                }
+              }
+            }
+          }
+          operations {
+            type: "matmul"
+            inputs {
+              key: "transpose_x"
+              value {
+                arguments {
+                  name: "matmul_transpose_x_0"
+                }
+              }
+            }
+            inputs {
+              key: "transpose_y"
+              value {
+                arguments {
+                  name: "matmul_transpose_y_0"
+                }
+              }
+            }
+            inputs {
+              key: "x"
+              value {
+                arguments {
+                  name: "A"
+                }
+              }
+            }
+            inputs {
+              key: "y"
+              value {
+                arguments {
+                  name: "B"
+                }
+              }
+            }
+            outputs {
+              name: "matmul"
+              type {
+                tensorType {
+                  dataType: FLOAT32
+                  rank: 2
+                  dimensions {
+                    constant {
+                      size: 3000
+                    }
+                  }
+                  dimensions {
+                    constant {
+                      size: 3000
+                    }
+                  }
+                }
+              }
+            }
+            attributes {
+              key: "name"
+              value {
+                type {
+                  tensorType {
+                    dataType: STRING
+                  }
+                }
+                immediateValue {
+                  tensor {
+                    strings {
+                      values: "matmul"
+                    }
+                  }
+                }
+              }
+            }
+          }
+          operations {
+            type: "const"
+            outputs {
+              name: "softmax_axis_0"
+              type {
+                tensorType {
+                  dataType: INT32
+                }
+              }
+            }
+            attributes {
+              key: "name"
+              value {
+                type {
+                  tensorType {
+                    dataType: STRING
+                  }
+                }
+                immediateValue {
+                  tensor {
+                    strings {
+                      values: "softmax_axis_0"
+                    }
+                  }
+                }
+              }
+            }
+            attributes {
+              key: "val"
+              value {
+                type {
+                  tensorType {
+                    dataType: INT32
+                  }
+                }
+                immediateValue {
+                  tensor {
+                    ints {
+                      values: -1
+                    }
+                  }
+                }
+              }
+            }
+          }
+          operations {
+            type: "softmax"
+            inputs {
+              key: "axis"
+              value {
+                arguments {
+                  name: "softmax_axis_0"
+                }
+              }
+            }
+            inputs {
+              key: "x"
+              value {
+                arguments {
+                  name: "matmul"
+                }
+              }
+            }
+            outputs {
+              name: "softmax"
+              type {
+                tensorType {
+                  dataType: FLOAT32
+                  rank: 2
+                  dimensions {
+                    constant {
+                      size: 3000
+                    }
+                  }
+                  dimensions {
+                    constant {
+                      size: 3000
+                    }
+                  }
+                }
+              }
+            }
+            attributes {
+              key: "name"
+              value {
+                type {
+                  tensorType {
+                    dataType: STRING
+                  }
+                }
+                immediateValue {
+                  tensor {
+                    strings {
+                      values: "softmax"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
