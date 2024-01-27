@@ -1,15 +1,11 @@
 CC = clang++
-INCLUDES = -I.
-DEPS = main.o helper.o
+CFLAGS = -O0 -Wall -Werror -Wno-unused-variable
+LDFLAGS = -framework Foundation -framework CoreML 
+DEPS = main.mm
 TARGET = main
 
-default: $(TARGET)
-
-$(TARGET): $(DEPS)
-	$(CC) -g -o $(TARGET) $(INCLUDES) $(DEPS)
-
-%.o: %.mm
-	$(CC) -c -o $@ $(INCLUDES) $<
+main: main.mm
+	$(CC) $(CFLAGS) -o $(TARGET) $(DEPS) $(LDFLAGS)
 
 clean:
-	rm -f $(DEPS) $(TARGET)
+	rm -f $(TARGET)

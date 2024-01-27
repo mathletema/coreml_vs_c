@@ -15,7 +15,7 @@ from coremltools.libcoremlpython import _MLModelProxy
 
 N = 3000
 
-PACKAGE_PATH = "model.mlpackage"
+PACKAGE_PATH = "../model.mlpackage"
 SPEC_FILE_TXT = "model_proto.txt"
 SPEC_FILE_BIN = "model_proto.bin"
 TMP_DIR = "tmp"
@@ -48,6 +48,8 @@ if _FLAG_PROGRAM_TO_PROTO:
 
     prog = Program()
     prog.add_function("main", func)
+
+    print(prog)
 
     # fill out proto object with program
     model = load(prog, weights_dir=TMP_DIR)
@@ -91,7 +93,7 @@ if _FLAG_PROTO_TO_PACKAGE:
 
 if _FLAG_PACKAGE_CREATED:
     # load model
-    proxy = _MLModelProxy(PACKAGE_PATH, ct.ComputeUnit.ALL.name)
+    proxy = _MLModelProxy(PACKAGE_PATH, "ALL")
 
     A = np.random.rand(N, N)
     B = np.random.rand(N, N)
